@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppSettingsPage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                 title: 'Dark mode',
                 enabledLabel: 'Enabled',
                 disabledLabel: 'Disabled',
-                leading: Icon(CupertinoIcons.moon_fill),
+                leading: Icon(FontAwesomeIcons.moon),
                 onChange: (value) {
                   debugPrint('key-dark-mode: $value');
                 },
@@ -50,9 +50,9 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
                 title: 'Rate',
                 settingKey: 'key-slider-rate',
                 defaultValue: 0.9,
-                min: 0.5,
+                min: 0.6,
                 max: 1.0,
-                step: 0.05,
+                step: 0.005,
                 // leading: Icon(Icons.volume_up),
                 onChangeEnd: (value) {
                   debugPrint('\n===== on change end =====\n'

@@ -71,6 +71,7 @@ class TtsPlayer {
 
     flutterTts.setSpeechRate(0.5);
     flutterTts.setVolume(1.0);
+    flutterTts.setLanguage("en-US");
   }
 
   // void _wait() async{
