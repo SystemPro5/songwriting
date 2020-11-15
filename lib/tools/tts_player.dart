@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 // import 'package:flutter_tts/flutter_tts_web.dart';
 
@@ -12,7 +13,7 @@ class TtsPlayer {
   TtsState ttsState = TtsState.stopped;
   double volume = 0.9;
   double pitch = 1.0;
-  double rate = 0.5;
+  double rate = 0.9;
 
   get isPlaying => ttsState == TtsState.playing;
   get isStopped => ttsState == TtsState.stopped;
@@ -72,6 +73,11 @@ class TtsPlayer {
     flutterTts.setVolume(1.0);
   }
 
+  // void _wait() async{
+  //   //print('seconds = $seconds');
+  //   await Future.delayed(Duration(seconds: Settings.getValue('key-slider-sentence-seperation-time', 5)));
+  // }
+
 // Future _getLanguages() async {
 //   languages = await flutterTts.getLanguages;
 //   if (languages != null) setState(() => languages);
@@ -87,17 +93,30 @@ class TtsPlayer {
   }
 
   Future speak({@required text}) async {
-    await flutterTts.setVolume(volume);
-    await flutterTts.setSpeechRate(rate);
-    await flutterTts.setPitch(pitch);
+    double _volume = Settings.getValue('key-slider-volume', 0.5);
+    if (volume != _volume) {
+     volume = _volume;
+      await flutterTts.setVolume(volume);
+    }
+      double _pitch = Settings.getValue('key-slider-pitch', 1.0);
+      if (pitch != pitch) {
+        pitch = _pitch;
+        await flutterTts.setPitch(pitch);
+      }
+      double _rate = Settings.getValue('key-slider-rate', 0.9);
+      if (rate != _rate) {
+        rate = _rate;
+        await flutterTts.setSpeechRate(rate);
+      }
 
-    if (text != null) {
-      if (text.isNotEmpty) {
-        await flutterTts.awaitSpeakCompletion(true);
-        await flutterTts.speak(text);
+      if (text != null) {
+        if (text.isNotEmpty) {
+          await flutterTts.awaitSpeakCompletion(true);
+          await flutterTts.speak(text);
+        }
       }
     }
-  }
+
 
   Future stop() async {
     var result = await flutterTts.stop();

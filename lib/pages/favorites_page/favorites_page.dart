@@ -119,6 +119,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       List list = raw.values.toList();
 
                       return ListView.builder(
+                        //reverse: true,
                         shrinkWrap: true,
                         itemCount: list.length,
                         itemBuilder: (context, index) {
